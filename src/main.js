@@ -45,6 +45,7 @@ request.getAsync(BULBASAUR)
     const speed = stats.find("th:contains('Speed')").next().text()
     const specialAttack = stats.find("th:contains('Sp. Atk')").next().text()
     const specialDefense = stats.find("th:contains('Sp. Def')").next().text()
+    const total = stats.find("th:contains('Total')").next().text()
 
     const data = [
       `ID Num: ${idNum}`,
@@ -64,7 +65,8 @@ request.getAsync(BULBASAUR)
       `Special Attack: ${specialAttack}`,
       `Defense: ${defense}`,
       `Special Defense: ${specialDefense}`,
-      `Speed: ${speed}`
+      `Speed: ${speed}`,
+      `Stat Total: ${total}`
     ].join('\n')
 
     console.log(data)
