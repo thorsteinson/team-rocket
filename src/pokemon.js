@@ -1,7 +1,7 @@
 // Model for parsing pokemon data and for creating a CSV row representing a
 // pokemon
 
-export {parseType}
+export {parsePokemon}
 
 import * as _ from 'lodash'
 
@@ -68,5 +68,30 @@ function parseGender (str) {
       male: parseFloat(matches[1]),
       female: parseFloat(matches[2])
     }
+  }
+}
+
+// Takes an object with all of our data, and parses it so that it's more
+// friendly to work with / export
+function parsePokemon (data) {
+  return {
+    id: parseInt(data.id),
+    type: parseType(data.type),
+    species: data.species,
+    height: parseHeight(data.height),
+    weight: parseWeight(data.weight),
+    evYield: parseEV(data.ev),
+    catchRate: parseFloat(data.catchRate),
+    baseExp: parseFloat(data.baseExp),
+    growthRate: data.growthRate,
+    gender: parseGender(data.gender),
+    eggCycles: extractFloat(data.eggCycles),
+    hp: parseFloat(data.hp),
+    speed: parseFloat(data.speed),
+    attack: parseFloat(data.attack),
+    specialAttack: parseFloat(data.specialAttack),
+    defense: parseFloat(data.defense),
+    speicalDefense: parseFloat(data.speicalDefense),
+    total: parseFloat(data.total)
   }
 }
