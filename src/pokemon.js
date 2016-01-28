@@ -75,7 +75,7 @@ function parseGender (str) {
 // friendly to work with / export
 function parsePokemon (data) {
   return {
-    id: parseInt(data.id),
+    id: parseInt(data.id, 10),
     type: parseType(data.type),
     species: data.species,
     height: parseHeight(data.height),
@@ -91,7 +91,7 @@ function parsePokemon (data) {
     attack: parseFloat(data.attack),
     specialAttack: parseFloat(data.specialAttack),
     defense: parseFloat(data.defense),
-    speicalDefense: parseFloat(data.speicalDefense),
+    speicalDefense: parseFloat(data.specialDefense),
     total: parseFloat(data.total)
   }
 }

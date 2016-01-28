@@ -3,6 +3,8 @@ import {load} from 'cheerio'
 import * as csv from 'csv'
 import {Promise} from 'bluebird'
 
+import {parsePokemon} from './pokemon'
+
 // Use bluebird in order to use libraries in a promise friendly way
 Promise.promisifyAll(csv)
 Promise.promisifyAll(request, {multiArgs: true})
@@ -28,7 +30,7 @@ request.getAsync(BULBASAUR)
     const weight = $(pokedex.get(4)).text()
 
     const training = $("h2:contains('Training')").next().find('td')
-    const evYield = $(training.get(0)).text()
+    const ev = $(training.get(0)).text()
     const catchRate = $(training.get(1)).text()
     const baseHappiness = $(training.get(2)).text()
     const baseExp = $(training.get(3)).text()
@@ -48,27 +50,27 @@ request.getAsync(BULBASAUR)
     const total = stats.find("th:contains('Total')").next().text()
 
 
-    const data = [
-      `ID Num: ${idNum}`,
-      `Species: ${species}`,
-      `Type: ${type}`,
-      `Height: ${height}`,
-      `Weight: ${weight}`,
-      `EV Yield: ${evYield}`,
-      `Catch Rate: ${catchRate}`,
-      `Base Exp: ${baseExp}`,
-      `Growth Rate: ${growthRate}`,
-      `Egg Cycles: ${eggCycles}`,
-      `Happiness: ${baseHappiness}`,
-      `Gender: ${gender}`,
-      `HP: ${hp}`,
-      `Attack: ${attack}`,
-      `Special Attack: ${specialAttack}`,
-      `Defense: ${defense}`,
-      `Special Defense: ${specialDefense}`,
-      `Speed: ${speed}`,
-      `Stat Total: ${total}`
-    ].join('\n')
+    const pokemon = parsePokemon({
+      id: idNum,
+      species,
+      type,
+      height,
+      weight,
+      ev,
+      catchRate,
+      baseExp,
+      growthRate,
+      eggCycles,
+      baseHappiness,
+      gender,
+      hp,
+      attack,
+      specialAttack,
+      defense,
+      specialDefense,
+      speed,
+      total
+    })
 
-    console.log(data)
+    console.log(pokemon)
   })
