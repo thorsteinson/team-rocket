@@ -92,6 +92,8 @@ function parsePokemon (data) {
     specialAttack: parseFloat(data.specialAttack),
     defense: parseFloat(data.defense),
     speicalDefense: parseFloat(data.specialDefense),
-    total: parseFloat(data.total)
+    total: parseFloat(data.total),
+    name: data.name,
+    generation: parseInt(data.generation, 10)
   }
 }

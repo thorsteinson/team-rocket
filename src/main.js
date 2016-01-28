@@ -49,7 +49,6 @@ request.getAsync(BULBASAUR)
     const specialDefense = stats.find("th:contains('Sp. Def')").next().text()
     const total = stats.find("th:contains('Total')").next().text()
 
-
     const pokemon = parsePokemon({
       id: idNum,
       species,
@@ -69,7 +68,9 @@ request.getAsync(BULBASAUR)
       defense,
       specialDefense,
       speed,
-      total
+      total,
+      name: 'bulbasaur',
+      generation: '1'
     })
 
     console.log(pokemon)
