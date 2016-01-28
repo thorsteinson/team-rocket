@@ -1,3 +1,5 @@
-require('babel-polyfil')
+'use strict'
+
+require('babel-polyfill')
 require('babel-register')
-require('src/main.js')
+require('./src/main')
