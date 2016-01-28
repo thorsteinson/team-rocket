@@ -47,6 +47,7 @@ request.getAsync(BULBASAUR)
     const specialDefense = stats.find("th:contains('Sp. Def')").next().text()
     const total = stats.find("th:contains('Total')").next().text()
 
+
     const data = [
       `ID Num: ${idNum}`,
       `Species: ${species}`,
