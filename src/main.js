@@ -1,14 +1,18 @@
 import * as request from 'request'
 import {load} from 'cheerio'
-import * as csv from 'csv'
 import {Promise} from 'bluebird'
 import {default as _} from 'lodash'
+import * as fs from 'fs'
 
-import {parsePokemon, toCSV} from './pokemon'
+import {parsePokemon, toCSV, header} from './pokemon'
 
 // Use bluebird in order to use libraries in a promise friendly way
-Promise.promisifyAll(csv)
 Promise.promisifyAll(request, {multiArgs: true})
+
+// Setup files
+const CSV_OUT = process.env.CSV_OUT || 'pokemon.csv'
+const wStream = fs.createWriteStream(CSV_OUT)
+wStream.write(header())
 
 const BASE_SCRAPE_URL = 'http://pokemondb.net/pokedex/national'
 const BASE_URI = 'http://pokemondb.net'
@@ -23,7 +27,6 @@ const requests = request.getAsync(BASE_SCRAPE_URL)
     // Gets links to each pokemon page, and the generation / name
     return _
       .chain(pokeContainer.find('.infocard-tall').toArray())
-      .take(2)
       .map(elem => {
         const tmp = $(elem)
         const pokemon = tmp.find('a.ent-name')
@@ -120,6 +123,7 @@ Promise.mapSeries(requests, promise => {
     .then(p => {
       // Logs out pokemon
       console.log(toCSV(p))
+      wStream.write(toCSV(p) + '\n')
     })
   return Promise.delay(500).then(req)
-})
+}).then(() => wStream.end())

@@ -1,0 +1,2 @@
+id,species,height,weight,catchRate,baseExp,growthRate,male,female,evValue,evType,primaryType,secondaryType,eggCycles,hp,speed,attack,specialAttack,defense,speicalDefense,total,name,generation1,Seed Pokémon,0.71,6.9,45,64,Medium Slow,5,5,1,Special Attack,Grass,Poison,21,45,45,49,65,49,65,318,Bulbasaur,1
+2,Seed Pokémon,0.99,13,45,141,Medium Slow,5,5,1,Special Attack,Grass,Poison,21,60,60,62,80,63,80,405,Ivysaur,1
