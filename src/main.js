@@ -127,3 +127,8 @@ Promise.mapSeries(requests, promise => {
     })
   return Promise.delay(500).then(req)
 }).then(() => wStream.end())
+  .catch(err => {
+    console.log('Encountered Error: ')
+    console.log(err)
+    wSteam.end()
+  })
