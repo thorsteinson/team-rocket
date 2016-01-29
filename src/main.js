@@ -13,16 +13,6 @@ Promise.promisifyAll(request, {multiArgs: true})
 const BASE_SCRAPE_URL = 'http://pokemondb.net/pokedex/national'
 const BASE_URI = 'http://pokemondb.net'
 
-// SERIALLY fetches each pokemon, with a 500ms delay inbetween each request
-Promise.mapSeries(requests, promise=> {
-  const req = promise()
-    .then(p => {
-      // Logs out pokemon
-      console.log(p)
-    })
-  return Promise.delay(500).then(req)
-})
-
 // Get all the links on the root page
 const requests = request.getAsync(BASE_SCRAPE_URL)
   .then(([code, body]) => {
@@ -134,3 +124,13 @@ function fetchPokemon ({name, href, generation}) {
       })
     })
 }
+
+// SERIALLY fetches each pokemon, with a 500ms delay inbetween each request
+Promise.mapSeries(requests, promise=> {
+  const req = promise()
+    .then(p => {
+      // Logs out pokemon
+      console.log(p)
+    })
+  return Promise.delay(500).then(req)
+})

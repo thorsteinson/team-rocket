@@ -43,7 +43,7 @@ function parseEV (str) {
   const regex = /(\d) (\w+( \w+)?)/
 
   const matches = str.match(regex)
-  return {value: matches[1], type: matches[2]}
+  return {evValue: matches[1], evType: matches[2]}
 }
 
 // Some values have text descriptions with the numberes. This gets the number
@@ -74,17 +74,24 @@ function parseGender (str) {
 // Takes an object with all of our data, and parses it so that it's more
 // friendly to work with / export
 function parsePokemon (data) {
+  const {male, female} = parseGender(data.gender)
+  const {evValue, evType} = parseEV(data.ev)
+  const {primaryType, secondaryType} = parseType(data.type)
+
   return {
     id: parseInt(data.id, 10),
-    type: parseType(data.type),
     species: data.species,
     height: parseHeight(data.height),
     weight: parseWeight(data.weight),
-    evYield: parseEV(data.ev),
     catchRate: parseFloat(data.catchRate),
     baseExp: parseFloat(data.baseExp),
     growthRate: data.growthRate,
-    gender: parseGender(data.gender),
+    male,
+    female,
+    evValue,
+    evType,
+    primaryType,
+    secondaryType,
     eggCycles: extractFloat(data.eggCycles),
     hp: parseFloat(data.hp),
     speed: parseFloat(data.speed),
