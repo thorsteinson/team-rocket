@@ -12,7 +12,7 @@ Promise.promisifyAll(request, {multiArgs: true})
 // Setup files
 const CSV_OUT = process.env.CSV_OUT || 'pokemon.csv'
 const wStream = fs.createWriteStream(CSV_OUT)
-wStream.write(header())
+wStream.write(header() + '\n')
 
 const BASE_SCRAPE_URL = 'http://pokemondb.net/pokedex/national'
 const BASE_URI = 'http://pokemondb.net'
