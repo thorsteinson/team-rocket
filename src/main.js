@@ -83,13 +83,13 @@ function fetchPokemon ({name, href, generation}) {
       const eggCycles = $(breeding.get(2)).text()
 
       const stats = $("h2:contains('stats')").next()
-      const hp = stats.find("th:contains('HP')").next().text()
-      const attack = stats.find("th:contains('Attack')").next().text()
-      const defense = stats.find("th:contains('Defense')").next().text()
-      const speed = stats.find("th:contains('Speed')").next().text()
-      const specialAttack = stats.find("th:contains('Sp. Atk')").next().text()
-      const specialDefense = stats.find("th:contains('Sp. Def')").next().text()
-      const total = stats.find("th:contains('Total')").next().text()
+      const hp = stats.find("th:contains('HP')").next().first().text()
+      const attack = stats.find("th:contains('Attack')").next().first().text()
+      const defense = stats.find("th:contains('Defense')").next().first().text()
+      const speed = stats.find("th:contains('Speed')").next().first().text()
+      const specialAttack = stats.find("th:contains('Sp. Atk')").next().first().text()
+      const specialDefense = stats.find("th:contains('Sp. Def')").next().first().text()
+      const total = stats.find("th:contains('Total')").next().first().text()
 
       return parsePokemon({
         id: idNum,

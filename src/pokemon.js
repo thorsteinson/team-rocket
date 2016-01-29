@@ -16,7 +16,7 @@ function parseType (str) {
   // Filter only whole words
   const [primaryType, secondaryType] = _.filter(parsed, token => token.match(/^\w+$/))
 
-  return {primaryType, secondaryType}
+  return {primaryType, 'secondaryType': secondaryType || 'None'}
 }
 
 // Parse the string containing the height and return the numerical value in
