@@ -1,9 +1,9 @@
 // Model for parsing pokemon data and for creating a CSV row representing a
 // pokemon
 
-export {parsePokemon}
+export {parsePokemon, toCSV, header}
 
-import * as _ from 'lodash'
+import {default as _} from 'lodash'
 
 // Parsing utilities
 
@@ -103,4 +103,23 @@ function parsePokemon (data) {
     name: data.name,
     generation: parseInt(data.generation, 10)
   }
+}
+
+const KEY_ORDER = [
+  'id', 'species', 'height', 'weight', 'catchRate', 'baseExp', 'growthRate',
+  'male', 'female', 'evValue', 'evType', 'primaryType', 'secondaryType',
+  'eggCycles', 'hp', 'speed', 'attack', 'specialAttack', 'defense',
+  'speicalDefense', 'total', 'name', 'generation'
+]
+
+// Returns pokemon object as a valid CSV Line
+function toCSV (pokemon) {
+  return _.map(KEY_ORDER, key => {
+    return pokemon[key].toString()
+  }).join(',')
+}
+
+// Generates the CSV header
+function header () {
+  return KEY_ORDER.join(',')
 }

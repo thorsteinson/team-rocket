@@ -4,7 +4,7 @@ import * as csv from 'csv'
 import {Promise} from 'bluebird'
 import {default as _} from 'lodash'
 
-import {parsePokemon} from './pokemon'
+import {parsePokemon, toCSV} from './pokemon'
 
 // Use bluebird in order to use libraries in a promise friendly way
 Promise.promisifyAll(csv)
@@ -43,17 +43,6 @@ const requests = request.getAsync(BASE_SCRAPE_URL)
       })
       .value()
   })
-
-// Maps over a collection with a delay
-function throttledMap (array, f, delay) {
-  const results = []
-  const idx = 0
-
-  function helper(value, array, f) {
-
-  }
-}
-
 
 // Given an ID, give back the generation
 function getGeneration (id) {
@@ -126,11 +115,11 @@ function fetchPokemon ({name, href, generation}) {
 }
 
 // SERIALLY fetches each pokemon, with a 500ms delay inbetween each request
-Promise.mapSeries(requests, promise=> {
+Promise.mapSeries(requests, promise => {
   const req = promise()
     .then(p => {
       // Logs out pokemon
-      console.log(p)
+      console.log(toCSV(p))
     })
   return Promise.delay(500).then(req)
 })
