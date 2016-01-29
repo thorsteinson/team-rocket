@@ -130,5 +130,5 @@ Promise.mapSeries(requests, promise => {
   .catch(err => {
     console.log('Encountered Error: ')
     console.log(err)
-    wSteam.end()
+    wStream.end()
   })
