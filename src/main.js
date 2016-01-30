@@ -33,7 +33,7 @@ const requests = request.getAsync(BASE_SCRAPE_URL)
         const obj = {
           name: pokemon.text(),
           href: BASE_URI + pokemon.attr('href'),
-          generation: getGeneration(pokemon.find('small').first().text().substring(1))
+          generation: getGeneration(tmp.find('small').first().text().substring(1))
         }
         return obj
       })
