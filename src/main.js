@@ -65,31 +65,39 @@ function fetchPokemon ({name, href, generation}) {
       const $ = load(body)
 
       const pokedex = $("h2:contains('data')").next().find('td')
-      const idNum = $(pokedex.get(0)).text()
-      const type = $(pokedex.get(1)).text()
-      const species = $(pokedex.get(2)).text()
-      const height = $(pokedex.get(3)).text()
-      const weight = $(pokedex.get(4)).text()
+      const idNum = getIdx(pokedex, 0)
+      const type = getIdx(pokedex, 1)
+      const species = getIdx(pokedex, 2)
+      const height = getIdx(pokedex, 3)
+      const weight = getIdx(pokedex, 4)
 
       const training = $("h2:contains('Training')").next().find('td')
-      const ev = $(training.get(0)).text()
-      const catchRate = $(training.get(1)).text()
-      const baseHappiness = $(training.get(2)).text()
-      const baseExp = $(training.get(3)).text()
-      const growthRate = $(training.get(4)).text()
+      const ev = getIdx(training, 0)
+      const catchRate = getIdx(training, 1)
+      const baseHappiness = getIdx(training, 2)
+      const baseExp = getIdx(training, 3)
+      const growthRate = getIdx(training, 4)
 
       const breeding = $("h2:contains('Breeding')").next().find('td')
-      const gender = $(breeding.get(1)).text()
-      const eggCycles = $(breeding.get(2)).text()
+      const gender = getIdx(breeding, 1)
+      const eggCycles = getIdx(breeding, 2)
 
       const stats = $("h2:contains('stats')").next()
-      const hp = stats.find("th:contains('HP')").next().first().text()
-      const attack = stats.find("th:contains('Attack')").next().first().text()
-      const defense = stats.find("th:contains('Defense')").next().first().text()
-      const speed = stats.find("th:contains('Speed')").next().first().text()
-      const specialAttack = stats.find("th:contains('Sp. Atk')").next().first().text()
-      const specialDefense = stats.find("th:contains('Sp. Def')").next().first().text()
-      const total = stats.find("th:contains('Total')").next().first().text()
+      const hp = getStat('HP')
+      const attack = getStat('Attack')
+      const defense = getStat('Defense')
+      const speed = stats.getStat('Speed')
+      const specialAttack = getStat('Sp. Atk')
+      const specialDefense = getStat('Sp. Def')
+      const total = getStat('Total')
+
+      function getIdx (section, idx) {
+        return $(section.get(idx)).text()
+      }
+
+      function getStat (stat) {
+        return stats.find(`th:contains('${stat}')`).next().first.text()
+      }
 
       return parsePokemon({
         id: idNum,
@@ -131,4 +139,5 @@ Promise.mapSeries(requests, promise => {
     console.log('Encountered Error: ')
     console.log(err)
     wStream.end()
+    throw err
   })
